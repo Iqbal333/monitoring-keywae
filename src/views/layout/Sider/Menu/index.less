@@ -1,0 +1,33 @@
+.sidebar-menu-container {
+  height: calc(100% - 64px);
+}
+
+.ant-menu-light {
+  color: rgb(0 0 0 / 65%);
+  background: #ffffff;
+  .ant-menu-item-selected {
+    color: #000;
+    background: #9d9f9e42;
+  }
+  .ant-menu-item:hover:not(.ant-menu-item-selected):not(
+      .ant-menu-submenu-selected
+    ) {
+    color: #161515;
+  }
+  .ant-menu-submenu-title:hover:not(.ant-menu-item-selected):not(
+      .ant-menu-submenu-selected
+    ) {
+    color: #161515;
+  }
+  .ant-menu-submenu-selected > .ant-menu-submenu-title {
+    color: #ffffff;
+    background: #136034;
+  }
+  .ant-menu-item-group-title {
+    font-weight: 800;
+  }
+}
+
+.ant-menu-light.ant-menu-inline .ant-menu-sub.ant-menu-inline {
+  background: #ffffff;
+}

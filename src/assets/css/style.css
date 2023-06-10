@@ -1,0 +1,117 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: auto;
+}
+
+.header-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    flex: auto;
+}
+
+.header-left-image {
+    flex: content;
+}
+
+.header-left-child {
+    font-weight: 600;
+    font-size: medium;
+}
+
+.header-right-child {
+    font-weight: 400;
+    font-size: medium;
+}
+
+.header-right-child-bold {
+    font-weight: 600;
+    font-size: medium;
+}
+
+.detail {
+    display: flex;
+    justify-content: space-between;
+}
+
+.customer-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.customer-name {
+    font-size: medium;
+    font-weight: 600;
+}
+
+.customer-email {
+    font-size: medium;
+    font-weight: 400;
+}
+
+.customer-phoneNumber {
+    font-size: medium;
+    font-weight: 400;
+}
+
+.driver-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.driver-name {
+    font-size: medium;
+    font-weight: 600;
+}
+
+.driver-email {
+    font-size: medium;
+    font-weight: 400;
+}
+
+.driver-phoneNumber {
+    font-size: medium;
+    font-weight: 400;
+}
+
+.head-title {
+    font-size: medium;
+}
+
+
+.billing-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.billing-name {
+    font-size: medium;
+    font-weight: 600;
+}
+
+.billing-email {
+    font-size: medium;
+    font-weight: 400;
+}
+
+.billing-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.billing-label {
+    font-size: medium;
+    font-weight: 600;
+}
