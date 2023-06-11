@@ -1,7 +1,7 @@
 import { incomes, listIncomes } from '@/api/transactions';
 import { toRupiah } from '@/utils';
 import LineChart from '@/views/dashboard/components/LineChart';
-import { Button, Card, Col, DatePicker, Input, Pagination, Row, Select, Table } from 'antd'
+import { Button, Card, Col, DatePicker, Input, Pagination, Row, Select, Avatar, Table } from 'antd'
 import dayjs from 'dayjs';
 import React, { Component } from 'react'
 import './index.less'
@@ -12,6 +12,17 @@ import { createRef } from 'react';
 import { FilterFilled } from '@ant-design/icons';
 import { getPaymentMethod } from '@/api/master/paymentMethod';
 import { getServiceType } from '@/api/master/serviceType';
+import {Link} from 'react-router-dom';
+import TotalDriver from '@/assets/images/total-driver.png';
+import PendapatanKeySeller from '@/assets/images/total_transaksi_seller.png';
+import LocalHero from '@/assets/images/icon-local-hero.png';
+import KeyMob from '@/assets/images/icon-keymob.png';
+import PesertaLelang from '@/assets/images/peserta_lelang.png';
+import ProdukLelang from '@/assets/images/icon-keylang.png';
+import KeyShop from '@/assets/images/icon-keyshop.png';
+import KeyTor from '@/assets/images/icon-keytor.png';
+import KeyMerchant from '@/assets/images/total_transaksi_seller1.png';
+import PendapatanKeyMerchant from '@/assets/images/pendapatan_merchant.png';
 
 export class DriverDashboard extends Component {
 
@@ -79,53 +90,66 @@ export class DriverDashboard extends Component {
             listChartOrderLegend: ['Total Order'],
             cardList: [
                 {
-                    type: 'Total Pendapatan KeyShop',
+                    type: 'Total Pendapatan Local Hero',
                     num: 0,
-                    icon: 'WalletOutlined',
+                    icon: LocalHero,
                     color: '#40c9c6',
                 },
                 {
                     type: 'Total Pendapatan KeyDriver',
                     num: 0,
-                    icon: 'WalletOutlined',
+                    icon: TotalDriver,
                     color: '#36a3f7',
                 },
                 {
                     type: 'Total Pendapatan KeyMerchant',
                     num: 0,
-                    icon: 'WalletOutlined',
+                    icon: PendapatanKeyMerchant,
                     color: '#36a3f7',
                 },
                 {
                     type: 'Total Pendapatan KeySeller',
                     num: 0,
-                    icon: 'ShoppingCartOutlined',
+                    icon: PendapatanKeySeller,
+                    color: '#36a3f7',
+                },
+                {
+                    type: 'Total Produk Lelang',
+                    num: 0,
+                    icon: ProdukLelang,
+                    color: '#36a3f7',
+                },
+                {
+                    type: 'Total Driver Mobil',
+                    num: 0,
+                    icon: KeyMob,
                     color: '#36a3f7',
                 },
                 {
                     type: 'Total Driver Motor',
                     num: 0,
-                    icon: 'ShoppingCartOutlined',
-                    color: '#36a3f7',
-                },
-                {
-                    type: 'Total Driver Motor',
-                    num: 0,
-                    icon: 'WalletOutlined',
+                    icon: KeyTor,
                     color: '#40c9c6',
                 },
                 {
                     type: 'Total Toko',
                     num: 0,
-                    icon: 'WalletOutlined',
+                    icon: KeyShop,
                     color: '#36a3f7',
                 },
                 {
                     type: 'Total Resto',
                     num: 0,
-                    icon: 'WalletOutlined',
+                    icon: KeyMerchant,
                     color: '#36a3f7',
                 },
+                {
+                    type: 'Total Peserta Lelang',
+                    num: 0,
+                    icon: PesertaLelang,
+                    color: '#36a3f7',
+                },
+                
             ]
         }
     }
@@ -280,6 +304,14 @@ export class DriverDashboard extends Component {
                             },
                             {
                                 ...state.cardList[7],
+                                num: card.driver
+                            },
+                            {
+                                ...state.cardList[8],
+                                num: card.maxTech
+                            },
+                            {
+                                ...state.cardList[9],
                                 num: card.driver
                             },
                         ]
@@ -510,7 +542,7 @@ export class DriverDashboard extends Component {
                 dataIndex: 'totalOrder'
             },
             {
-                title: 'Max Tech',
+                title: 'Biaya Layanan',
                 key: 'maxTech',
                 dataIndex: 'maxTech',
                 render: (_, record) => (
@@ -538,7 +570,7 @@ export class DriverDashboard extends Component {
         return (
             <>
                 <div className='panel-group-container'>
-                    <Row gutter={40} className='panel-group'>
+                    <Row gutter={24} className='panel-group'>
                         {this.state.cardList.map((val, idx) => (
                             <Col
                                 key={idx}
@@ -550,56 +582,25 @@ export class DriverDashboard extends Component {
                                     this.fetchChartById(idx)
                                 }}
                             >
-                                <div className='card-panel'>
-                                    <div className='card-panel-icon-wrapper'>
-                                        <Icon
-                                            className={`${val?.type} card-panel-icon`}
-                                            style={{ color: val.color }}
-                                            icon={val?.icon}
-                                        />
+                                <Link to={val.url}>
+                                    <div className='card-panel'>
+                                        <div className='card-panel-icon-wrapper'>
+                                            <Avatar
+                                                className={`${val?.type} card-panel-icon`}
+                                                src={val?.icon}
+                                                shape='square'
+                                                size={48}
+                                            />
+                                        </div>
+                                        <div className='card-panel-description'>
+                                            <p className='card-panel-text'>{val.type}</p>
+                                            <CountUp end={val?.num} start={0} className='card-panel-num' />
+                                        </div>
                                     </div>
-                                    <div className='card-panel-description'>
-                                        <p className='card-panel-text'>{val.type}</p>
-                                        <CountUp end={val?.num} start={0} className='card-panel-num'/>
-                                    </div>
-                                </div>
+                                </Link>
                             </Col>
                         ))}
                     </Row>
-                </div>
-                <div style={{ marginBottom: 10 }}>
-                    <Card title="Filter INCOME">
-                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'end', marginLeft: 5, marginRight: 5 }}>
-                                <span style={{ marginBottom: 3 }}>Date :</span>
-                                <DatePicker.RangePicker allowClear={true} onChange={this.filterDate} disabledDate={this.disableDate} onCalendarChange={(val) => this.setState({ calendarDates: val })} />
-                            </div>
-                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'end', marginLeft: 5, marginRight: 5 }}>
-                                <span style={{ marginBottom: 3 }}>Service Type :</span>
-                                <Select fieldNames={{ label: 'serviceTypeName', value: 'serviceTypeId' }} options={this.state.serviceTypes} onChange={this.filterService} />
-                            </div>
-                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'end', marginLeft: 5, marginRight: 5 }}>
-                                <span style={{ marginBottom: 3 }}>Payment Method :</span>
-                                <Select fieldNames={{ label: 'paymentMethodName', value: 'paymentMethodId' }} options={this.state.paymentMethods} onChange={this.filterPayment} />
-                            </div>
-                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'end', marginLeft: 5, marginRight: 5 }}>
-                                <span style={{ marginBottom: 3 }}>Search :</span>
-                                <Input onChange={this.filterSearch} />
-                            </div>
-                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'end', marginLeft: 5, marginRight: 5 }}>
-                                <Button onClick={() => {
-                                    this.fetchDataIncome()
-                                }} icon={<FilterFilled />} type="primary">
-                                    Filter Data
-                                </Button>
-                            </div>
-                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'end', marginLeft: 5, marginRight: 5 }}>
-                                <Button onClick={this.filterReset} icon={<FilterFilled />} type="default">
-                                    Reset Filter
-                                </Button>
-                            </div>
-                        </div>
-                    </Card>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                     <Card style={{ flex: 1 }} title="PROFIT SHARING">
@@ -617,49 +618,35 @@ export class DriverDashboard extends Component {
                         />
                     </Card>
                     <div style={{ marginLeft: 5, marginRight: 5 }} />
-                    <Card style={{ flex: 1 }} title="TOTAL ORDER">
-                        <LineChart
-                            chartData={{
-                                series: this.state.listChartOrder,
-                                xAxis: this.state.listChartOrderAxis,
-                                legend: this.state.listChartOrderLegend
-                            }}
-                            styles={{
-                                padding: 12,
-                                backgroundColor: '#fff',
-                                marginBottom: '25px',
-                            }}
+                    <Card
+                        title="INCOME"
+                        style={{ marginLeft: 5, marginRight: 5 }}
+                    >
+                        <Table
+                            size='small'
+                            dataSource={this.state.list}
+                            rowKey={() => Math.random() * 1000}
+                            columns={columns}
+                            loading={this.state.loading}
+                            pagination={false}
+                            style={{ minHeight: 300 }}
+                        />
+                        <Pagination
+                            size='small'
+                            total={this.state.total}
+                            pageSizeOptions={['10', '20', '50', '100']}
+                            defaultPageSize={this.state.listQuery.limit}
+                            showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
+                            onChange={this.changePage}
+                            current={this.state.listQuery.page + 1}
+                            onShowSizeChange={this.changeLimit}
+                            pageSize={this.state.listQuery.limit}
+                            style={{ marginTop: 10 }}
+                            showSizeChanger
+                            showQuickJumper
                         />
                     </Card>
                 </div>
-                <Card
-                    title="INCOME"
-                    style={{ marginTop: 10, marginBottom: 10 }}
-                >
-                    <Table
-                        size='small'
-                        dataSource={this.state.list}
-                        rowKey={() => Math.random() * 1000}
-                        columns={columns}
-                        loading={this.state.loading}
-                        pagination={false}
-                        style={{ minHeight: 300 }}
-                    />
-                    <Pagination
-                        size='small'
-                        total={this.state.total}
-                        pageSizeOptions={['10', '20', '50', '100']}
-                        defaultPageSize={this.state.listQuery.limit}
-                        showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
-                        onChange={this.changePage}
-                        current={this.state.listQuery.page + 1}
-                        onShowSizeChange={this.changeLimit}
-                        pageSize={this.state.listQuery.limit}
-                        style={{ marginTop: 10 }}
-                        showSizeChanger
-                        showQuickJumper
-                    />
-                </Card>
             </>
         )
     }
